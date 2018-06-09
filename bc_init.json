@@ -1,7 +1,7 @@
 {
-  "directory_enabled": 0,
-  "file_enabled": 0,
-  "device_enabled": 0,
+  "directory_enabled": 1,
+  "file_enabled": 1,
+  "device_enabled": 1,
   "os_enabled": 1,
   "browser_enabled": 1,
   "target_element": "body",
