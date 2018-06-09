@@ -1,0 +1,13 @@
+{
+  "directory_enabled": 0,
+  "file_enabled": 0,
+  "device_enabled": 0,
+  "os_enabled": 1,
+  "browser_enabled": 1,
+  "target_element": "body",
+  "directory_prefix": "dir",
+  "file_prefix": "pages",
+  "device_prefix": "device",
+  "os_prefix": "os",
+  "browser_prefix": "browser"
+}

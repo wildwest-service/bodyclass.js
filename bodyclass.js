@@ -1,47 +1,52 @@
 $(function(){
+
+//---
+// JSONファイルで基本設定を行う
+$.getJSON("bc_init.json", function (bc_init) {
 //---
 
+//---
 // bodyclass
 // ==============================================================
-// 様々な情報をbody開始タグに出力するためのjs  
-// ローカルサーバーを起動した状態など、ルートパスが有効な状態での使用を推奨  
+// 様々な情報をbody開始タグに出力するためのjs
+// ローカルサーバーを起動した状態など、ルートパスが有効な状態での使用を推奨
 // （ローカルファイルとして直接開くとファイル名の判定がサーバー上と異なるため）
-// 
+//
 
 // 識別classそれぞれのON・OFF設定が可能
 // --------------------------------------------------
 // 以下の変数に0を設定すると対応する識別classが出力されなくなる
-// 
+//
 // * directory_enabled
 // * file_enabled
 // * device_enabled
 // * os_enabled
 // * browser_enabled
-// 
+//
 
 // 出力先要素の指定が可能
 // --------------------------------------------------
-// 便宜上bodyclassという呼称ではあるが、変数target_elementの値に指定した  
-// セレクタとなる要素に出力されるようになっている  
+// 便宜上bodyclassという呼称ではあるが、変数target_elementの値に指定した
+// セレクタとなる要素に出力されるようになっている
 // 現在のところjQueryに依存しているため、CSSのセレクタ書式でclassやidでの指定も可能
-// 
+//
 
 // ディレクトリの判定class一覧（[directory_prefix]は変数の値で置き換えられる）
 // --------------------------------------------------
 // [directory_prefix]-[ディレクトリ名] （ディレクトリ名はabout/のaboutなどスラッシュを含まない状態で出力）
-// 
+//
 
 // ファイル名の判定class一覧（[file_prefix]は変数の値で置き換えられる）
 // --------------------------------------------------
 // [file_prefix]-[ファイル名] （ファイル名はindex.htmlのindexなど拡張子を含まない状態で出力）
-// 
+//
 
 // デバイスタイプの判定class一覧（[device_prefix]は変数の値で置き換えられる）
 // --------------------------------------------------
 // スマートフォン： [device_prefix]-smartphone
 // タブレット：    [device_prefix]-tablet
 // PC：        [device_prefix]-pc （スマートフォンとタブレット以外は全てPCと判定）
-// 
+//
 
 // OSの判定class一覧（[os_prefix]は変数の値で置き換えられる）
 // --------------------------------------------------
@@ -51,7 +56,7 @@ $(function(){
 // iOS:     [os_prefix]-ios
 // Android: [os_prefix]-android
 // その他:    [os_prefix]-other_os
-// 
+//
 
 // ブラウザの判定class一覧（[browser_prefix]は変数の値で置き換えられる）
 // --------------------------------------------------
@@ -69,13 +74,13 @@ $(function(){
 // Opera Mini:   [browser_prefix]-opera_mini
 // 旧Android標準: [browser_prefix]-standard （Android4.4以前の標準ブラウザ）
 // その他:         [browser_prefix]-other_browser
-// 
+//
 
 // 特定端末の判定方法
 // --------------------------------------------------
-// 特定の端末を判定してスタイルを適用するには、出力されるbodyのclassを組み合わせたセレクタを使用する  
+// 特定の端末を判定してスタイルを適用するには、出力されるbodyのclassを組み合わせたセレクタを使用する
 // 以下の例は分かりやすくするため、各プレフィックスが標準の状態で出力されたとして記述している
-// 
+//
 // iPhone:           .os-ios.device-smartphone （iPod touchも同じ）
 // iPad:             .os-ios.device-tablet
 // MacOS:            .os-macos.device-pc
@@ -83,56 +88,55 @@ $(function(){
 // Androidタブレット:    .os-android.device-tablet
 // WindowsPC:        .os-windows.device-pc
 // WindowsPhone:     .os-windows.device-smartphone
-// 
+//
 
 
 // class出力のON・OFF設定
 // ==================================================
 // それぞれ0で無効、1などそれ以外の値で有効となる
-// 
+//
 
 // ディレクトリ識別
-var directory_enabled = 1;
+var directory_enabled = bc_init["directory_enabled"];
 // ファイル識別
-var file_enabled      = 1;
+var file_enabled      = bc_init["file_enabled"];
 // デバイス識別
-var device_enabled    = 1;
+var device_enabled    = bc_init["device_enabled"];
 // OS識別
-var os_enabled        = 1;
+var os_enabled        = bc_init["os_enabled"];
 // ブラウザ識別
-var browser_enabled   = 1;
-
+var browser_enabled   = bc_init["browser_enabled"];
 
 // class出力先要素の設定
 // ==================================================
 // 出力先のセレクタを指定
-// 
+//
 
-var target_element = 'body';
+var target_element = bc_init["target_element"];
 
 
 // プレフィックスの設定
 // ==============================================================
 // 出力先要素に付与するclass名のプレフィックスを設定できます。
-// 
+//
 
 // ディレクトリ用のプレフィックス
-var directory_prefix = 'dir';
+var directory_prefix = bc_init["directory_prefix"];
 // ファイル用のプレフィックス
-var file_prefix = 'pg';
+var file_prefix = bc_init["file_prefix"];
 // デバイス名に使用するプレフィックス
-var device_prefix = 'device';
+var device_prefix = bc_init["device_prefix"];
 // OS名に使用するプレフィックス
-var os_prefix = 'os';
+var os_prefix = bc_init["os_prefix"];
 // ブラウザ名に使用するプレフィックス
-var browser_prefix = 'browser';
+var browser_prefix = bc_init["browser_prefix"];
 
 
 
 // ディレクトリとファイル識別Classの出力
 // ==============================================================
 // ディレクトリやファイル名を元に、エリアやページを特定するためのClassをbodyタグに出力する
-// 
+//
 
 // 共通処理
 // --------------------------------------------------
@@ -144,7 +148,7 @@ var path = locPath.split("/").reverse();
 
 // ディレクトリによる識別Class出力処理
 // --------------------------------------------------
-// 
+//
 if (directory_enabled) {
 	// ルートディレクトリの場合
 	if(locPath == '/' || locPath.indexOf('/index') === 0){
@@ -174,7 +178,7 @@ if (directory_enabled) {
 
 // ファイル名による識別Class出力
 // --------------------------------------------------
-// 
+//
 if (file_enabled) {
 	// ディレクトリ名とファイル名の連結用変数の初期化
 	if(locPath == '/' || locPath.indexOf('/index') === 0){
@@ -207,7 +211,7 @@ if (file_enabled) {
 
 // 端末情報識別処理
 // --------------------------------------------------
-// 
+//
 
 /**
  * 処理に使用するネームスペースとなるオブジェクト
@@ -443,7 +447,7 @@ body_class.browser_name = (function () {
 
 		default:
 			return 'other_browser';
-	}	
+	}
 })();
 
 /**
@@ -677,7 +681,7 @@ body_class.browser_version = (function () {
 
 	// デバイスタイプ識別クラスの出力処理
 	// --------------------------------------------------
-	// 
+	//
 	if (device_enabled) {
 		//smartphone
 		if(body_class.is_smartphone(body_class.ua)) {
@@ -697,7 +701,7 @@ body_class.browser_version = (function () {
 
 	// OS識別クラスの出力処理
 	// ==============================================================
-	// 
+	//
 	if (os_enabled) {
 		// Mac
 		if(body_class.is_macos(body_class.ua)) {
@@ -725,7 +729,7 @@ body_class.browser_version = (function () {
 
 	// ブラウザ識別クラスの出力処理
 	// ==============================================================
-	// 
+	//
 	if (browser_enabled) {
 		// IEの場合
 		if (body_class.browser_name === 'ie') {
@@ -736,6 +740,7 @@ body_class.browser_version = (function () {
 		}
 	}
 
+});
 // bodyclass END
 
 //---
