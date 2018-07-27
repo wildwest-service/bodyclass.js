@@ -415,34 +415,34 @@ body_class.os_name = (function () {
 body_class.browser_name = (function () {
 	switch (true) {
 		case body_class.is_edge(body_class.ua):
-			return 'edge';
+			return '-edge';
 
 		case body_class.is_ie(body_class.ua):
-			return 'ie';
+			return '-ie';
 
 		case body_class.is_opera_mini(body_class.ua):
-			return 'opera_mini';
+			return '-opera_mini';
 
 		case body_class.is_opera(body_class.ua):
-			return 'opera';
+			return '-opera';
 
 		case body_class.is_chromium(body_class.ua):
-			return 'chromium';
+			return '-chromium';
 
 		case body_class.is_chrome(body_class.ua):
-			return 'chrome';
+			return '-chrome';
 
 		case body_class.is_firefox(body_class.ua):
-			return 'firefox';
+			return '-firefox';
 
 		case body_class.is_safari(body_class.ua):
-			return 'safari';
+			return '-safari';
 
 		case body_class.is_standard(body_class.ua):
-			return 'standard';
+			return '-standard';
 
 		default:
-			return 'other_browser';
+			return '-other_browser';
 	}	
 })();
 
